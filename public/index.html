@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://st3.depositphotos.com/6343398/34742/i/450/depositphotos_347426736-stock-photo-ticket-popcorn-filmstrip-and-clapper.jpg');
+            background-size: cover;
+            color: black;
+            font-size: 25px;
+            font-weight: 1000;
+        }
+        
+        h1 {
+            color: black;
+            text-align: center;
+            margin: 175px 580px 0 0;
+            text-shadow: 2px 2px 4px rgb(26, 181, 229);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .pt {
+            margin: auto;
+            text-align: center;
+            font-size: 100px;
+            font-weight: 900;
+            color: black;
+            text-shadow: 2px 2px 4px rgb(26, 181, 229);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .f1 {
+            margin-top: 35px;
+            font-weight: bolder;
+            position: absolute;
+            width: 30vw;
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            border: solid transparent 1px;
+            padding: 20px;
+            background-color: transparent;
+            background-size: cover;
+            text-shadow: 2px 2px 4px rgb(208, 213, 218);
+            z-index: 1;
+        }
+        
+        .btn-down {
+            margin: 25px 0 0 190px;
+            text-decoration: none;
+            color: black;
+            background-color: white;
+            text-shadow: 2px 2px 4px rgb(0, 0, 0);
+            position: relative;
+            cursor: pointer;
+            z-index: 1;
+        }
+        
+        .btn-down:hover {
+            color: black;
+            background-color: transparent;
+            text-shadow: 2px 2px 4px rgb(255, 255, 255);
+        }
+        .cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .a-tag a{
+            color: white;
+            text-shadow: none;
+        }
+        .a-tag-2 {
+            color: white;
+            text-shadow: none;
+            margin-left: 85px;
+        }
+        .a-tag-2 a{
+            color: rgb(32, 190, 187);
+            text-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <!-- <h1 class="pt">MEAN MOVIES</h1> -->
+        <div>
+            <h1>LOGIN</h1>
+            <form action="./index" method="post" class="f1">
+                <input type="text" name="luser" placeholder="Enter the name" style="background-color: transparent; border: transparent; color: white; font-size: 25px; font-weight: 500;"><hr>
+                <input type="password" name="lpass" placeholder="Enter the Password" style="background-color: transparent; border: transparent; color: white; font-size: 25px; font-weight: 500;"><hr>
+                <div class="a-tag">
+                    <a href="/forgotpassword">forgot password ?</a>
+                </div>
+                <input type="submit" value="Login" class="btn-down"  style=" border: transparent; font-size: 25px; font-weight: 800;"><br><br>
+                <div class="a-tag-2">
+                    Not a Member ? <a href="/login">Register</a>
+                </div>
+            </form>
+        </div>
+        <div class="cover"><div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial,sans-serif;
+            display: flex;
+            background-repeat: no-repeat;
+            background-size: cover;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20230706/pngtree-gritty-cinematic-backdrop-a-luxurious-and-elegant-3d-rendering-of-a-image_3805012.jpg');
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            height: 500px;
+            width: 1000px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         }
+
+        .poster {
+            flex: 1;
+            margin-right: 20px;
+            width:600px;
+            height: 500px;
+        }
+        .poster img {
+            width:400px;
+            height: 500px;
+            border-radius: 5px;
+        }
+        .details {
+            /* flex: 1; */
+            display: flex;
+            color: wheat;
+            flex-direction: column;
+            font-size:25px;
+        }
+        .director,.hero,.heroine,.music,.fights,.coreography {
+            margin-bottom: 20px;
+        }
+        .btn {
+            border: 5px solid transparent;
+            text-align: center;
+            margin: auto;
+            padding: 7px;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+        .btn:hover  {
+            background-color: transparent;
+            border: 5px solid transparent;
+        }
+        .a-tag {
+            color: white;
+            text-decoration: none;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+        }
+        .btn-down{
+            margin-left: 195px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="poster" id="poster">
+            <img src="" alt="Movie Poster">
+        </div>
+        <div class="details">
+            <h1  id="movieTitle">Movie Title</h1>
+            <div id="director" class="director">Director: </div>
+            <div id="hero" class="hero">Hero: </div>
+            <div id="heroine" class="heroine">Heroine: </div>
+            <div id="music" class="music">Music: </div>
+            <div id="fights" class="fights">Fights: </div>
+            <div id="choreography" class="choreography">Choreography: </div>
+            <div id="button" class="btn">BOOK NOW</div>
+        </div>
+    </div>
+
+    <div id="popupContainer" class="popup">
+        <form action="./booking" method="post">
+            <h1>Book Chesi Show ni Enjoy Chey ☺</h1>
+            <input type="text" name="Name" placeholder="Enter name" style="background-color: transparent; border: transparent;"><hr>
+            <select name="Movie">
+                <option>Select a Movie</option>
+                <option>DAMSEL</option>
+                <option>IRISH WISH</option>
+                <option>OPPENHEIMER</option>
+                <option>TILLU SQUARE</option>
+                <option>SHAITAAN</option>
+                <option>YODHA</option>
+                <option>GHOSTBUSTERS</option>
+                <option>DEVARA</option>
+                <option>FURIOSA</option>
+                <option>MAIN LADEGA</option>
+                <option>BHOOL BHULAIYAA 3</option>
+                <option>THE BEEKEEPER</option>
+                <option>KONCHEM HATKE</option>
+            </select>
+            <hr>
+            
+            <!-- Ticket Class Radio Buttons -->
+            <input type="radio" name="ticketClass" value="VIP" onclick="showVIPOptions()">VIP
+            <input type="radio" name="ticketClass" value="FirstClass" onclick="showFirstClassOptions()">1st Class
+            <input type="radio" name="ticketClass" value="SecondClass" onclick="showSecondClassOptions()">2nd Class
+            <hr>
+            
+            <!-- Checkboxes for VIP Class -->
+            <div id="vipOptions" style="display: none;" name="class">
+                <input type="checkbox" name="vipOption[]" value="A"> A
+                <input type="checkbox" name="vipOption[]" value="B"> B
+                <input type="checkbox" name="vipOption[]" value="C"> C
+            </div>
+            
+            <!-- Checkboxes for 1st Class -->
+            <div id="firstClassOptions" style="display: none;" name="class">
+                <input type="checkbox" name="firstClassOption[]" value="A"> A
+                <input type="checkbox" name="firstClassOption[]" value="B"> B
+                <input type="checkbox" name="firstClassOption[]" value="C"> C
+                <input type="checkbox" name="firstClassOption[]" value="D"> D
+                <input type="checkbox" name="firstClassOption[]" value="E"> E
+            </div>
+            
+            <!-- Checkboxes for 2nd Class -->
+            <div id="secondClassOptions" style="display: none;" name="class">
+                <input type="checkbox" name="secondClassOption[]" value="F"> F
+                <input type="checkbox" name="secondClassOption[]" value="G"> G
+                <input type="checkbox" name="secondClassOption[]" value="H"> H
+                <input type="checkbox" name="secondClassOption[]" value="I"> I
+                <input type="checkbox" name="secondClassOption[]" value="j"> J
+            </div>
+            
+            <input type="number" name="Seats" placeholder="Enter no of Tickets" style="background-color: transparent; border: transparent;"><hr>
+            <input type="submit" value="Book Now" class="btn-down" style="border: transparent; font-size: 25px; font-weight: 800;">
+        </form>
+    </div>
+    
+
+    <script>
+
+        function showVIPOptions() {
+            document.getElementById('vipOptions').style.display = 'block';
+            document.getElementById('firstClassOptions').style.display = 'none';                
+            document.getElementById('secondClassOptions').style.display = 'none';
+        }
+            
+        function showFirstClassOptions() {
+            document.getElementById('vipOptions').style.display = 'none';
+            document.getElementById('firstClassOptions').style.display = 'block';
+           document.getElementById('secondClassOptions').style.display = 'none';
+        }
+            
+        function showSecondClassOptions() {
+            document.getElementById('vipOptions').style.display = 'none';
+            document.getElementById('firstClassOptions').style.display = 'none';
+            document.getElementById('secondClassOptions').style.display = 'block';
+        }
+
+        var bookNowButton = document.getElementById('button');
+
+        var popupContainer = document.getElementById('popupContainer');
+
+        bookNowButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            popupContainer.style.display = 'block';
+        });
+
+
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        // Retrieve movie ID from URL
+        var cineId = getUrlParameter('id');
+
+        // Define movie details based on movie ID
+        var movieDetails = {
+            'cine1': {
+                'title': 'DAMSEL',
+                'director': 'Juan Carlos Fresnadillo',
+                'hero': 'Lord Bayford',
+                'heroine': 'Millie Bobby Brown',
+                'music': 'David Fleming',
+                'fights': 'Ray Winstone',
+                'choreography': 'Joe Roth',
+                'poster': 'https://image.tmdb.org/t/p/original/neil20KXNhdctwdoyZdVFm7Fwq0.jpg'
+            },
+            'cine2': {
+                'title': 'IRISH WISH',
+                'director': 'Janeen Damian',
+                'hero': 'Paul Kennedy',
+                'heroine': 'Lindsay Lohan',
+                'music': 'Nathan Lanier',
+                'fights': 'James Thomas',
+                'choreography': 'Ed Speleers',
+                'poster': 'https://pbs.twimg.com/media/GI_0ZQOW0AAC1Lx.jpg'
+            },
+            'cine3': {
+                'title': 'OPPENHEIMER',
+                'director': 'Christopher Nolan',
+                'hero': 'Cillian Murphy ',
+                'heroine': 'Florence Pugh',
+                'music': 'Ludwig Goransson',
+                'fights': 'Bloodsport',
+                'choreography': 'Center Stage',
+                'poster': 'https://www.hollywoodreporter.com/wp-content/uploads/2022/07/Oppenheimer-Movie-Poster-Universal-Publicity-EMBED-2022-.jpg?w=1000'
+            },
+            'cine4': {
+                'title': 'TILLU SQUARE',
+                'director': 'Mallik Ram',
+                'hero': 'Siddu Jonnalagadda',
+                'heroine': 'Anupama Parameswaran',
+                'music': 'Ram Miriyala',
+                'fights': 'Ram Lakshman',
+                'choreography': 'Sudharshan',
+                'poster': 'https://m.media-amazon.com/images/M/MV5BMjgzNzU5MmQtOWI3Yi00OWU2LWI0MmItNThjOTdlYzU0ZmNlXkEyXkFqcGdeQXVyMTIyMjMzODUx._V1_.jpg'
+            },
+            'cine5': {
+                'title': 'SHAITAAN',
+                'director': 'Bejoy Nambiar',
+                'hero': 'Ajay Devgn',
+                'heroine': 'Anngad Raaj',
+                'music': 'Amit Trivedi',
+                'fights': 'Vikram Dharma',
+                'choreography': 'Saroj Khan',
+                'poster': 'https://m.media-amazon.com/images/M/MV5BMzQwYmYyOWQtNTkyOS00ZjJiLWExMGEtYjdmNTIxNjliNDBiXkEyXkFqcGdeQXVyODgzMzg2MDg@._V1_.jpg'
+            },
+            'cine6': {
+                'title': 'YODHA',
+                'director': 'Sagar Ambre',
+                'hero': 'Sidharth Malhotra',
+                'heroine': 'Disha Patani',
+                'music': 'Sangeeth Sivan',
+                'fights': 'Melroy Disilva',
+                'choreography': 'Craig Macrae',
+                'poster': 'https://m.media-amazon.com/images/M/MV5BMDdlODdmODItZDAxNi00MjExLWFjOGItMGY3MzFjYzU4NDM3XkEyXkFqcGdeQXVyMTUzNTgzNzM0._V1_.jpg'
+            },
+            'cine7': {
+                'title': 'GHOSTBUSTERS',
+                'director': 'Jason Reitman',
+                'hero': 'Peter Venkman',
+                'heroine': 'Sigourney Weaver',
+                'music': 'Mik Old Field',
+                'fights': 'Blatty',
+                'coreography': 'Linda Dlair',
+                'poster': 'https://external-preview.redd.it/new-posters-for-ghostbusters-frozen-empire-v0-I8FDRoQNStr7L875KvKSjyYsGCkALTlZVa3YaZIvim8.jpg?auto=webp&s=d7904fb9592c2690fda013a20f8d5d10895274ca'
+            },
+            'cine8': {
+                'title': 'HARI HARA VEERAMALLU',
+                'director': 'Krish Jagarlamudi',
+                'hero': 'Pawan Kalyan',
+                'heroine': 'Nidhhi Agerwal',
+                'music': 'M.M.Keeravani',
+                'fights': 'Sham Kaushal',
+                'choreography': 'Bhanu',
+                'poster': 'https://images.news18.com/ibnlive/uploads/2022/09/pawan-kalyan-hari-hara-veeramallu-poster-d-1.jpg'
+            },
+            'cine9': {
+                'title': 'DEVARA',
+                'director': 'Koratala Siva',
+                'hero': 'N.T.Rama Rao',
+                'heroine': 'Janhvi Kapoor',
+                'music': 'Anirudh Ravichander',
+                'fights': 'Irfan Khan',
+                'choreography': 'Raju Sundaram',
+                'poster': 'https://m.media-amazon.com/images/M/MV5BYmYyYzZkZTEtOGNjYy00ZWUyLWFiYzYtYjViMzU1ZDk4ODhiXkEyXkFqcGdeQXVyNzI4NjYyMzk@._V1_.jpg'
+            },
+            'cine10': {
+                'title': 'FURIOSA',
+                'director': 'George Miller',
+                'hero': 'Chris Hemsworth',
+                'heroine': 'Anya Taylor',
+                'music': 'Tom Holkenborg',
+                'fights': 'Chris Anderson',
+                'choreography': 'Tomie French',
+                'poster': 'https://assets.gadgets360cdn.com/pricee/assets/product/202312/Furiosa_poster_1701410187.jpg'
+            },
+            'cine11': {
+                'title': 'MAIN LADEGA',
+                'director': 'Gaurav Rana',
+                'hero': 'Akash Pratap Singh',
+                'heroine': 'Vallari Viraj',
+                'music': 'Gibson George',
+                'fights': 'Melroy Disilva',
+                'choreography': 'Ankit Joe',
+                'poster': 'https://assets-in.bmscdn.com/discovery-catalog/events/et00394336-fxbujyyvug-landscape.jpg'
+            },
+            'cine12': {
+                'title': 'Bhool Bhulaiyaa 3',
+                'director': 'Anees Bazmee',
+                'hero': 'Karthik Aaryan',
+                'heroine': 'Triptii Dimri',
+                'music': 'Charlie Clouser',
+                'fights': 'Mary Shaw',
+                'choreography': 'Larry',
+                'poster': 'https://i.ytimg.com/vi/mK1jBei3Z_w/maxresdefault.jpg'
+            },
+            'cine13': {
+                'title': 'THE BEEKEEPER',
+                'director': 'David Ayer',
+                'hero': 'Jason Statham',
+                'heroine': 'Emmy Raver-Lampman',
+                'music': 'David Sardy',
+                'fights': 'Captain Spaulding',
+                'choreography': 'Sheri Moon Zombie',
+                'poster': 'https://m.media-amazon.com/images/M/MV5BZjQwYjU3OTYtMWVhMi00N2Y2LWEzMDgtMzViN2U4NWI1NmI3XkEyXkFqcGdeQXVyODk2NDQ3MTA@._V1_.jpg'
+            },
+            'cine14': {
+                'title': 'KONCHEM HATKE',
+                'director': 'Avinash Kumar',
+                'hero': 'Guru Charan',
+                'heroine': 'Krishna Manjusha',
+                'music': 'K.M.Radhakrishnan',
+                'fights': 'Silva',
+                'choreography': 'Ahmed Khan',
+                'poster': 'https://www.businessoftollywood.com/wp-content/uploads/2024/02/konchem-hatke-1.jpg'
+            }
+        };
+
+        // Update movie details based on movie ID
+        document.getElementById('movieTitle').innerText = movieDetails[cineId].title;
+        document.getElementById('director').innerText += movieDetails[cineId].director;
+        document.getElementById('hero').innerText += movieDetails[cineId].hero;
+        document.getElementById('heroine').innerText += movieDetails[cineId].heroine;
+        document.getElementById('music').innerText += movieDetails[cineId].music;
+        document.getElementById('fights').innerText += movieDetails[cineId].fights;
+        document.getElementById('choreography').innerText += movieDetails[cineId].choreography;
+
+        // Update movie poster
+        document.querySelector('#poster img').src = movieDetails[cineId].poster;
+    </script>
+</body>
+</html>

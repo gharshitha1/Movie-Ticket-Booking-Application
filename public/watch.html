@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            background-repeat: no-repeat;
+            background-size: cover;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20230706/pngtree-gritty-cinematic-backdrop-a-luxurious-and-elegant-3d-rendering-of-a-image_3805012.jpg');
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            height: 500px;
+            width: 1000px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         }
+
+        .poster {
+            flex: 1;
+            margin-right: 20px;
+            width:600px;
+            height: 500px;
+        }
+        .poster img {
+            width:400px;
+            height: 500px;
+            border-radius: 5px;
+        }
+        .details {
+            /* flex: 1; */
+            display: flex;
+            flex-direction: column;
+            font-size:25px;
+           color: white;
+        }
+        .director,.hero,.heroine,.music,.fights,.coreography {
+            margin-bottom: 20px;
+        }
+        .btn {
+            border: 5px solid transparent;
+            text-align: center;
+            margin: auto;
+            padding: 7px;
+            background-color: black;
+            color: #00abf0;
+        }
+        .btn:hover  {
+            background-color: transparent;
+            border: 5px solid transparent;
+        }
+        .a-tag {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="poster" id="poster">
+            <img src="" alt="Movie Poster">
+        </div>
+        <div class="details">
+            <h1  id="movieTitle">Movie Title</h1>
+            <div id="director" class="director">Director: </div>
+            <div id="hero" class="hero">Hero: </div>
+            <div id="heroine" class="heroine">Heroine: </div>
+            <div id="music" class="music">Music: </div>
+            <div id="fights" class="fights">Fights: </div>
+            <div id="coreography" class="coreography">Coreography: </div>
+            <div id="button" class="btn"><a href="" class="a-tag" target="_blank" id="a-tag-w">WATCH NOW</div>
+
+        </div>
+    </div>
+
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        // Retrieve movie ID from URL
+        var movieId = getUrlParameter('id');
+
+        // Define movie details based on movie ID
+        var movieDetails = {
+            'movie1': {
+                'title': 'Wrong Turn',
+                'director': 'Apashyan kirikiri',
+                'hero': 'Nagarjuna',
+                'heroine': 'Sredevi',
+                'music': 'Muthyam',
+                'fights': 'Funkman',
+                'coreography': 'Katravelli',
+                'a-tag-w':'https://www.youtube.com/embed/naUUyD-_oPc',
+                'poster': 'https://e0.pxfuel.com/wallpapers/521/479/desktop-wallpaper-friday-the-13th-game-unique-jason-voorhees-friday.jpg'
+            },
+            'movie2': {
+                'title': 'ANIMAL',
+                'director': 'Sandeep Reddy Vanga',
+                'hero': 'Ranbir Kapoor',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/YD7b4gU0HWQ',
+                'poster': 'https://m.media-amazon.com/images/I/91zTlD7AY1L._AC_UF1000,1000_QL80_.jpg'
+            },
+            'movie3': {
+                'title': 'EVIL DEAD AND RISE',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/smTK_AeAPHs',
+                'poster': 'https://cdn.posteritati.com/posters/000/000/067/922/evil-dead-rise-md-web.jpg'
+            },
+            'movie4': {
+                'title': 'THE INSIDIOUS',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/gexw4P68kbg',
+                'poster': 'https://i.redd.it/tf1jkz29be4b1.jpg'
+            },
+            'movie5': {
+                'title': 'THE NUN',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tga':'https://youtu.be/pzD9zGcUNrw',
+                'poster': 'https://i.pinimg.com/736x/b8/e4/63/b8e463560de5119c9603d2b7e751c1ad.jpg'
+            },
+            'movie6': {
+                'title': 'THE CONJURING',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/k10ETZ41q5o',
+                'poster': 'https://image.tmdb.org/t/p/original/1r8Op3YxGI0CSUg4ZH1Nc1PUj0T.jpg'
+            },
+            'movie7': {
+                'title': 'THE EXORCIST',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/PIxpPMyGcpU',
+                'poster': 'https://i.toynewsi.com/g/generated/The_Exorcist_Believer/exorcist_believer_ver7_xlg__scaled_800.jpg'
+            },
+            'movie8': {
+                'title': 'VERONICA',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/AToHyHLYcp4',
+                'poster': 'https://images.justwatch.com/poster/306776062/s718/veronica.jpg'
+            },
+            'movie9': {
+                'title': 'THE DABBE',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/GnduZWRT-rs',
+                'poster': 'https://upload.wikimedia.org/wikipedia/en/4/4d/D%40bbe_VideoCover.jpeg'
+            },
+            'movie10': {
+                'title': 'SMILE',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/BcDK7lkzzsU',
+                'poster': 'https://image.tmdb.org/t/p/original/dtsR4CFDzK18YKsgLYpPmTDhQXk.jpg'
+            },
+            'movie11': {
+                'title': 'DARK WEB',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/Ii0BCTlwb_0',
+                'poster': 'https://s3-eu-west-1.amazonaws.com/abandomedia/db/poster/db_posters_34935.jpg'
+            },
+            'movie12': {
+                'title': 'DEAD SILENCE',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/8b_HVtHmK30',
+                'poster': 'https://m.media-amazon.com/images/M/MV5BOTM0MTg2NTQ0OF5BMl5BanBnXkFtZTcwOTIwOTU4MQ@@._V1_.jpg'
+            },
+            'movie13': {
+                'title': 'THE DEVILS REJECT',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/poxddLZq2k0',
+                'poster': 'https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p36160_p_v8_ad.jpg'
+            },
+            'movie14': {
+                'title': 'DARK WEB',
+                'director': 'Lee Cronin',
+                'hero': 'zzzzzzzz',
+                'heroine': 'Rashmika Mandanna',
+                'music': 'Harsha Vardhan',
+                'fights': 'Supreme Sundar',
+                'coreography': 'Sandeep',
+                'a-tag-w':'https://youtu.be/FnCdOQsX5kc',
+                'poster': 'https://m.media-amazon.com/images/M/MV5BZDVkZmI0YzAtNzdjYi00ZjhhLWE1ODEtMWMzMWMzNDA0NmQ4XkEyXkFqcGdeQXVyNzYzODM3Mzg@._V1_QL75_UX380_CR0,4,380,562_.jpg'
+            }
+        };
+
+        // Update movie details based on movie ID
+        document.getElementById('movieTitle').innerText = movieDetails[movieId].title;
+        document.getElementById('director').innerText += movieDetails[movieId].director;
+        document.getElementById('hero').innerText += movieDetails[movieId].hero;
+        document.getElementById('heroine').innerText += movieDetails[movieId].heroine;
+        document.getElementById('music').innerText += movieDetails[movieId].music;
+        document.getElementById('fights').innerText += movieDetails[movieId].fights;
+        document.getElementById('coreography').innerText += movieDetails[movieId].coreography;
+        document.getElementById('a-tag-w').href = movieDetails[movieId]['a-tag-w'];
+
+
+        // Update movie poster
+        document.querySelector('#poster img').src = movieDetails[movieId].poster;
+    </script>
+</body>
+</html>

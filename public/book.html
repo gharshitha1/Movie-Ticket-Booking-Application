@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20230705/pngtree-3d-render-of-online-ticketing-for-movies-image_3738846.jpg');
+            background-size: cover;
+        }
+        h1 {
+            color: black;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 40px;
+            font-weight: 700;
+            font-family: Algerian;
+            text-shadow: 2px 2px 4px rgb(26, 181, 229);
+        }
+        
+        .pt {
+            margin: auto;
+            text-align: center;
+            font-size: 100px;
+            font-weight: 900;
+            color: black;
+            text-shadow: 2px 2px 4px rgb(26, 181, 229);
+        }
+        .f1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: solid transparent 1px;
+            padding: 20px;
+            background-color: transparent;
+            background-size: cover;
+            font-weight: bolder;
+            color: white;
+            text-shadow: 2px 2px 4px rgb(255, 255, 255);
+        }
+        .btn-down {
+            margin: 15px 0 0 250px;
+            text-decoration: none;
+            color: #081b29;
+            background-color: white;
+        }
+
+        .btn-down:hover {
+            color: white;
+            background-color: #081b29;
+        }
+        </style>
+    </head>
+    <body>
+        <!-- <h1 class="pt">MEAN MOVIES</h1> -->
+        <div>
+            <form action="./booking" method="post" class="f1">
+                <h1>Book Chesi Show ni Enjoy Chey ☺</h1>
+                <input type="text" name="Name" placeholder="Enter name" style="background-color: transparent; border: transparent;"><hr>
+                <input type="text" name="Class" placeholder="Enter class" style="background-color: transparent; border: transparent;"><hr>
+                <input type="number" name="Seats" placeholder="Enter no of Ticket" style="background-color: transparent; border: transparent;"><hr>
+                <input type="submit" value="Book Now" class="btn-down" style=" border: transparent; font-size: 25px; font-weight: 800;">
+            </form>
+        </div>
+    </body>
+</html>

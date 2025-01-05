@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEAN MOVIES</title>
+
+    <!-- StyleSheet -->
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background-color: black;
+            position: relative;
+            z-index: 1;
+            /* position:sticky; */
+            top:0px;
+            z-index: 12;
+        }
+
+        .nleft
+        {
+            margin-left: 50px;
+            padding: 30px;
+            font-size: 25px;
+            font-weight: 900;
+            color: #00abf0;
+        }
+        .nleft a
+        {
+            text-decoration: none;
+            color: #00abf0;
+        }
+        .nleft a:hover
+        {
+            color: white;
+            text-shadow: 2px 2px 4px rgb(20, 143, 245);
+        }
+
+        .nright {
+            display: flex;
+            flex-direction: row;
+            /* margin-left: 300px; */
+            align-items: center;
+            font-weight: 700;
+            transition: 10s;
+        }
+
+        .nright a:hover {
+            color: white;
+            text-shadow: 2px 2px 4px rgb(20, 143, 245);
+        }  
+        .search {
+            color: #00abf0;
+            font-size: 15px;
+            font-weight: 800;
+            background-color: transparent;
+            margin: 0 3px 0 25px;
+        }
+        .search-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 2px;
+            height: 2px;
+            margin-right: 10px;
+        }
+        .search-button img{
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+
+        .ele {
+            margin: 10px;
+            padding: 20px;
+            color: #00abf0;
+            justify-content: space-between;
+            text-decoration: none;
+        }
+        .body-center img
+        {
+            width: 1500px;
+            height: 763px;
+            position: relative;
+        }
+        .movies
+        {
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-auto-rows: minmax(200px, auto);
+            gap: 10px;
+            padding: 10px;
+        }
+        .h1m{
+            color: #00abf0;
+            text-align: center;
+            font-size: 50px;
+            font-weight: 700;
+            font-family: algerian;
+            padding-top: 35px;
+        }
+        .h1cs{
+            color: #00abf0;
+            text-align: center;
+            font-size: 50px;
+            font-weight: 700;
+            font-family: algerian;
+            padding-top: 45px;
+        }
+
+        .grid-item {
+            overflow: hidden;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .grid-container-cs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-auto-rows: minmax(200px, auto);
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .grid-item-cs {
+            overflow: hidden;
+        }
+
+        .grid-item-cs img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .foot{  
+            background-color: black;
+            color: #00abf0;
+            font-size: 15px;
+            font-weight: 900;
+        }
+        .foot h1{
+            padding-top: 45px;
+            text-align: center;
+            font-weight: 900;
+        }
+        .foot footer {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0 0 250px;
+        }
+        .foot footer > div {
+            flex-basis: 30%;
+        }
+        .f-down{
+            margin: 0  0 15px 15px;
+            font-size: 25px;
+            font-weight: 900;
+        }
+        .cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 10;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 11;
+        }
+        .location-symbol {
+            cursor: pointer;
+        }
+        .btn-down {
+            margin-left: 145px;
+            text-decoration: none;
+            color: black;
+            background-color: white;
+            text-shadow: 2px 2px 4px rgb(0, 0, 0);
+            cursor: pointer;
+        } 
+    </style>
+
+</head>
+<body id="home">
+
+    <!-- navbar -->
+
+    <div class="navbar">
+        <div class="nleft">
+            <a href="#">MEAN MOVIES</a>
+            <!-- Location selector -->
+            <span id="locationSymbol" class="location-symbol" onclick="showSelectionFields()">📍</span>
+            <span id="selectedCity" class="selected-city"></span>
+        </div>
+
+        <div class="nright">
+            <form action="./search" method="post">
+                <input type="text" name="lsearch" placeholder="search" class="search">
+                <button type="submit" class="search-button"><img src="search.png" alt="Search Icon"></button>
+            </form>
+
+            <a href="#home" class="ele">Home</a>
+            <a href="#movies" class="ele">Movies</a>
+            <a href="#currentstreaming" class="ele">Current Streaming</a>
+            <a href="#aboutus" class="ele">About Us</a>
+            <a href="./main.html" class="ele">LogOut</a>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="popup" id="popup">
+        <form>
+            <label for="country">Country:</label>
+            <select id="country" onchange="countryselect()">
+                <option value="">Select the country</option>
+            </select><br><br>
+
+            <label for="state">State:</label>
+            <select id="state" onchange="stateselect()">
+                <option value="">Select the state</option>
+            </select><br><br>
+
+            <label for="city">City:</label>
+            <select id="city" onchange="cityselect()">
+                <option value="">Select the city</option>
+            </select><br><br>
+
+            <button type="button" class="btn-down" style=" border: transparent; font-size: 25px; font-weight: 800;" onclick="displaySelectedCity()">Submit</button>
+        </form>
+        </div>
+    </div>
+
+    <!-- Fuction to select the city -->
+
+    <script>
+        var selectedcountry;
+        var selectedstate;
+        var selectedcity;
+        var headers = new Headers();
+        headers.append("X-CSCAPI-KEY", "Y2pNanZtZm5rSWcwUVlFSDc0OXdLR24wRTQ0U3RGQ0NiRTlPbnhWcQ==");
+
+        var requestOptions = {
+            method: 'GET',
+            headers: headers,
+            redirect: 'follow'
+        };
+        fetch("https://api.countrystatecity.in/v1/countries", requestOptions)
+            .then(x => x.json())
+            .then(y => {
+                z = document.getElementById("country");
+                y.forEach(element => {
+                    var option = new Option(element.iso2 + " " + element.name);
+                    z.append(option);
+                });
+            });
+
+        function countryselect() {
+            document.getElementById("state").innerHTML = "select the state";
+            selectedcountry = document.getElementById("country").value;
+            fetch(`https://api.countrystatecity.in/v1/countries/${selectedcountry.substring(0, 2)}/states`, requestOptions)
+                .then(x => x.json())
+                .then(y => {
+                    z = document.getElementById("state");
+                    y.forEach(element => {
+                        var option = new Option(element.iso2 + " " + element.name);
+                        z.append(option);
+                    });
+                });
+        }
+
+        function stateselect() {
+            document.getElementById("city").innerHTML = "select the city";
+            selectedstate = document.getElementById("state").value;
+            fetch(`https://api.countrystatecity.in/v1/countries/${selectedcountry.substring(0, 2)}/states/${selectedstate.substring(0, 2)}/cities`, requestOptions)
+                .then(x => x.json())
+                .then(y => {
+                    z = document.getElementById("city");
+                    y.forEach(element => {
+                        var option = new Option(element.name);
+                        z.append(option);
+                    });
+                });
+        }
+
+        function cityselect() {
+            selectedcity = document.getElementById("city").value;
+            console.log(selectedcity);
+        }
+
+        function showSelectionFields() {
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function displaySelectedCity() {
+            var selectedCityElement = document.getElementById("selectedCity");
+            selectedCityElement.innerText = selectedcity;
+            selectedCityElement.style.display = "inline";
+            hidePopup();
+        }
+
+        function hidePopup() {
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+    
+    <!-- center image -->
+
+    <div class="body-center">
+        <img src="https://e0.pxfuel.com/wallpapers/521/479/desktop-wallpaper-friday-the-13th-game-unique-jason-voorhees-friday.jpg">
+        <div class="cover"></div>
+
+    <!-- Movies page -->
+
+    <div id="movies" class="movies">
+        <h1 class="h1m">Movies</h1><hr>
+        <div class="grid-container">
+            <div class="grid-item" onclick="redirectToWatch('movie1')">
+                <img src="https://e0.pxfuel.com/wallpapers/521/479/desktop-wallpaper-friday-the-13th-game-unique-jason-voorhees-friday.jpg" alt="Movie 1 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie2')">
+                <img src ="https://m.media-amazon.com/images/I/91zTlD7AY1L._AC_UF1000,1000_QL80_.jpg" alt="Movie 2 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie3')">
+                <img src ="https://cdn.posteritati.com/posters/000/000/067/922/evil-dead-rise-md-web.jpg" alt="Movie 3 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie4')">
+                <img src ="https://i.redd.it/tf1jkz29be4b1.jpg" alt="Movie 4 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie5')">
+                <img src ="https://i.pinimg.com/736x/b8/e4/63/b8e463560de5119c9603d2b7e751c1ad.jpg" alt="Movie 5 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie6')">
+                <img src ="https://image.tmdb.org/t/p/original/1r8Op3YxGI0CSUg4ZH1Nc1PUj0T.jpg" alt="Movie 6 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie7')">
+                <img src ="https://i.toynewsi.com/g/generated/The_Exorcist_Believer/exorcist_believer_ver7_xlg__scaled_800.jpg" alt="Movie 7 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie8')">
+                <img src ="https://images.justwatch.com/poster/306776062/s718/veronica.jpg" alt="Movie 8 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie9')">
+                <img src ="https://upload.wikimedia.org/wikipedia/en/4/4d/D%40bbe_VideoCover.jpeg" alt="Movie 9 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie10')">
+                <img src ="https://image.tmdb.org/t/p/original/dtsR4CFDzK18YKsgLYpPmTDhQXk.jpg" alt="Movie 10 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie11')">
+                <img src ="https://s3-eu-west-1.amazonaws.com/abandomedia/db/poster/db_posters_34935.jpg" alt="Movie 11 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie12')">
+                <img src ="https://m.media-amazon.com/images/M/MV5BOTM0MTg2NTQ0OF5BMl5BanBnXkFtZTcwOTIwOTU4MQ@@._V1_.jpg" alt="Movie 12 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie13')">
+                <img src ="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p36160_p_v8_ad.jpg" alt="Movie 13 Poster">
+            </div>
+            <div class="grid-item" onclick="redirectToWatch('movie14')">
+                <img src ="https://m.media-amazon.com/images/M/MV5BZDVkZmI0YzAtNzdjYi00ZjhhLWE1ODEtMWMzMWMzNDA0NmQ4XkEyXkFqcGdeQXVyNzYzODM3Mzg@._V1_QL75_UX380_CR0,4,380,562_.jpg" alt="Movie 14 Poster">
+            </div>
+            </div>
+        </div>
+        <script>
+            function redirectToWatch(movieId) {
+                window.location.href = `watch.html?id=${movieId}`;
+            }
+        </script>
+
+    <!-- currentstreaming -->
+
+    <br><br><br><br><br><br><br><br><br>
+
+    <div id="currentstreaming">
+        <h1 class="h1cs">Current Streaming</h1><hr>
+        <div class="grid-container-cs">
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine1')">
+                <img src="https://image.tmdb.org/t/p/original/neil20KXNhdctwdoyZdVFm7Fwq0.jpg" alt="Cine 1 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine2')">
+                <img src ="https://pbs.twimg.com/media/GI_0ZQOW0AAC1Lx.jpg" alt="Cine 2 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine3')">
+                <img src ="https://www.hollywoodreporter.com/wp-content/uploads/2022/07/Oppenheimer-Movie-Poster-Universal-Publicity-EMBED-2022-.jpg?w=1000" alt="Cine 3 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine4')">
+                <img src ="https://m.media-amazon.com/images/M/MV5BMjgzNzU5MmQtOWI3Yi00OWU2LWI0MmItNThjOTdlYzU0ZmNlXkEyXkFqcGdeQXVyMTIyMjMzODUx._V1_.jpg" alt="Cine 4 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine5')">
+                <img src ="https://m.media-amazon.com/images/M/MV5BMzQwYmYyOWQtNTkyOS00ZjJiLWExMGEtYjdmNTIxNjliNDBiXkEyXkFqcGdeQXVyODgzMzg2MDg@._V1_.jpg" alt="Cine 5 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine6')">
+                <img src ="https://m.media-amazon.com/images/M/MV5BMDdlODdmODItZDAxNi00MjExLWFjOGItMGY3MzFjYzU4NDM3XkEyXkFqcGdeQXVyMTUzNTgzNzM0._V1_.jpg" alt="Cine 6 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine7')">
+                <img src ="https://external-preview.redd.it/new-posters-for-ghostbusters-frozen-empire-v0-I8FDRoQNStr7L875KvKSjyYsGCkALTlZVa3YaZIvim8.jpg?auto=webp&s=d7904fb9592c2690fda013a20f8d5d10895274ca" alt="Cine 7 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine8')">
+                <img src ="https://images.news18.com/ibnlive/uploads/2022/09/pawan-kalyan-hari-hara-veeramallu-poster-d-1.jpg" alt="Cine 8 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine9')">
+                <img src ="https://m.media-amazon.com/images/M/MV5BYmYyYzZkZTEtOGNjYy00ZWUyLWFiYzYtYjViMzU1ZDk4ODhiXkEyXkFqcGdeQXVyNzI4NjYyMzk@._V1_.jpg" alt="Cine 9 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine10')">
+                <img src ="https://assets.gadgets360cdn.com/pricee/assets/product/202312/Furiosa_poster_1701410187.jpg" alt="Cine 10 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine11')">
+                <img src ="https://assets-in.bmscdn.com/discovery-catalog/events/et00394336-fxbujyyvug-landscape.jpg" alt="Cine 11 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine12')">
+                <img src ="https://i.ytimg.com/vi/mK1jBei3Z_w/maxresdefault.jpg" alt="Cine 12 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine13')">
+                <img src ="https://m.media-amazon.com/images/M/MV5BZjQwYjU3OTYtMWVhMi00N2Y2LWEzMDgtMzViN2U4NWI1NmI3XkEyXkFqcGdeQXVyODk2NDQ3MTA@._V1_.jpg" alt="Cine 13 Poster">
+            </div>
+            <div class="grid-item-cs" onclick="redirectToWatchCs('cine14')">
+                <img src ="https://www.businessoftollywood.com/wp-content/uploads/2024/02/konchem-hatke-1.jpg" alt="Cine 14 Poster">
+            </div>
+            </div>
+        </div>
+        <script>
+            function redirectToWatchCs(cineId) {
+                window.location.href = `currentstreaming1.html?id=${cineId}`;
+            }
+        </script>
+
+    <!-- aboutus -->
+
+    <div id="aboutus" class="foot">
+        <h1>ABOUT US</h1><hr>
+        <footer>
+            <div class="f-left">
+                <ol>
+                    <li>HARSHITHA</li><br><br>
+                    <li>AMITHA</li><br><br>
+                    <li>MANIK</li><br><br>
+                </ol>
+            </div>
+
+            <div class="f-center">
+                harshi@gmail.com<br><br><br>
+                amitha@gmail.com<br><br><br>
+                manik@gmail.com<br><br><br>
+            </div>
+
+            <div class="f-right">
+                9856789481<br><br><br>
+                7568497359<br><br><br>
+                9010347518<br><br><br>
+            </div>
+        </footer>
+
+        <div class="f-down">
+            Ma website ki vichhesinandhuku dhanyavadhamulu ♥
+            love you guys ♥
+            Movie  choosi njoy chesi chill ayipoo ☺
+        </div>
+    </div>
+</body>
+</html>
